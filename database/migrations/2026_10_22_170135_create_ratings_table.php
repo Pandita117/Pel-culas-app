@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_movie')->constrained('movies')->onDelete('cascade');
+            $table->tinyInteger('calificacion')->unsigned() ;
+            $table->longText('Reseña');
             $table->timestamps();
-            $table->string();
         });
     }
 

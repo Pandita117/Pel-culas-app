@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('actors', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre_act');
+            $table->string('apellido_act');
+            $table->date('f_nac');
+            $table->foreignId('id_nacionalidad')->constrained('nationalities')->onDelete('cascade');
+            $table->foreignId('id_premios')->constrained('awards')->onDelete('cascade');
             $table->timestamps();
         });
     }
