@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('directors', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->foreignId('id_nacionalidad')->constrained('nationalities')->onDelete('cascade');
+            $table->date('fecha_naci');
+            $table->foreignId('id_premios')->constrained('awards')->onDelete('cascade');
             $table->timestamps();
         });
     }
