@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('awards', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha_cracion');
+            $table->date('fecha_creacion');
+            $table->string('nombre_premio', 255);
             $table->timestamps();
         });
     }

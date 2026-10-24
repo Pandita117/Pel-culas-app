@@ -6,20 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
+            $table->string('titulo');
+            $table->foreignId('id_director')->nullable()->constrained('directors')->onDelete('cascade');
+            $table->foreignId('id_genero')->nullable()->constrained('genders')->onDelete('cascade');
+            $table->foreignId('id_clasificacion')->nullable()->constrained('clasifications')->onDelete('cascade');
+            $table->foreignId('id_productora')->nullable()->constrained('productors')->onDelete('cascade');
+            $table->foreignId('id_plataforma')->nullable()->constrained('platforms')->onDelete('cascade');
+            $table->foreignId('id_premios')->nullable()->constrained('awards')->onDelete('cascade');
+            $table->integer('cantidad_premios')->default(0);
+            $table->date('fecha_lanzamiento');
+            $table->integer('duracion'); // Minutos
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('movies');
