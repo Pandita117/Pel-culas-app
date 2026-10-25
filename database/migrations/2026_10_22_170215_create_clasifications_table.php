@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('clasifications', function (Blueprint $table) {
             $table->id();
-            $table->string('clasficiacion');
+            $table->string('clasficacion');
             $table->enum('rango',['Todos','12-15','16-17','+18']);
-            $table->longText('Descripcion');
+            $table->longText('descripcion');
             $table->timestamps();
         });
     }

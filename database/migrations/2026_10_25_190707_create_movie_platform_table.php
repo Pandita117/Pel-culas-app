@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('valoracion', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+Schema::create('movie_platform', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('movie_id')->constrained('movies')->onDelete('cascade');
+    $table->foreignId('platform_id')->constrained('platforms')->onDelete('cascade');
+    $table->timestamps();
+});
     }
 
     /**
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('valoracion');
+        Schema::dropIfExists('movie_platform');
     }
 };
