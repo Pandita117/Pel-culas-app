@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nationality;
 use Illuminate\Http\Request;
 
 class NationalityController extends Controller
@@ -11,7 +12,8 @@ class NationalityController extends Controller
      */
     public function index()
     {
-        //
+        $nacionalidades = Nationality::all();
+        return view('nacionalidad.index', compact('nacionalidades'));
     }
 
     /**
@@ -19,7 +21,7 @@ class NationalityController extends Controller
      */
     public function create()
     {
-        //
+        return view('nacionalidad.create');
     }
 
     /**
@@ -27,7 +29,19 @@ class NationalityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'idioma'     => 'required|string|max:255',
+            'Pais'       => 'required|string|max:255',
+            'continente' => 'required|string|max:255',
+        ]);
+
+        Nationality::create([
+            'idioma'     => $request->idioma,
+            'Pais'       => $request->Pais,
+            'continente' => $request->continente,
+        ]);
+
+        return redirect()->route('nacionalidades.index');
     }
 
     /**
@@ -35,7 +49,8 @@ class NationalityController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $nacionalidad = Nationality::findOrFail($id);
+        return view('nacionalidad.show', compact('nacionalidad'));
     }
 
     /**
@@ -43,7 +58,8 @@ class NationalityController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $nacionalidad = Nationality::findOrFail($id);
+        return view('nacionalidad.edit', compact('nacionalidad'));
     }
 
     /**
@@ -51,7 +67,19 @@ class NationalityController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'idioma'     => 'required|string|max:255',
+            'Pais'       => 'required|string|max:255',
+            'continente' => 'required|string|max:255',
+        ]);
+
+        Nationality::findOrFail($id)->update([
+            'idioma'     => $request->idioma,
+            'Pais'       => $request->Pais,
+            'continente' => $request->continente,
+        ]);
+
+        return redirect()->route('nacionalidades.index');
     }
 
     /**
@@ -59,6 +87,8 @@ class NationalityController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Nationality::findOrFail($id)->delete();
+
+        return redirect()->route('nacionalidades.index');
     }
 }
