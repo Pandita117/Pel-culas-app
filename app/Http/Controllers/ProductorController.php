@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Productor;
 use Illuminate\Http\Request;
 
 class ProductorController extends Controller
@@ -11,7 +12,8 @@ class ProductorController extends Controller
      */
     public function index()
     {
-        //
+        $productoras = Productor::all();
+        return view('productora.index', compact('productoras'));
     }
 
     /**
@@ -19,7 +21,7 @@ class ProductorController extends Controller
      */
     public function create()
     {
-        //
+        return view('productora.create');
     }
 
     /**
@@ -27,7 +29,15 @@ class ProductorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre_productora' => 'required|string|max:255',
+        ]);
+
+        Productor::create([
+            'nombre_productora' => $request->nombre_productora,
+        ]);
+
+        return redirect()->route('productoras.index');
     }
 
     /**
@@ -35,7 +45,8 @@ class ProductorController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $productora = Productor::findOrFail($id);
+        return view('productora.show', compact('productora'));
     }
 
     /**
@@ -43,7 +54,8 @@ class ProductorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $productora = Productor::findOrFail($id);
+        return view('productora.edit', compact('productora'));
     }
 
     /**
@@ -51,7 +63,15 @@ class ProductorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nombre_productora' => 'required|string|max:255',
+        ]);
+
+        Productor::findOrFail($id)->update([
+            'nombre_productora' => $request->nombre_productora,
+        ]);
+
+        return redirect()->route('productoras.index');
     }
 
     /**
@@ -59,6 +79,8 @@ class ProductorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Productor::findOrFail($id)->delete();
+
+        return redirect()->route('productoras.index');
     }
 }
