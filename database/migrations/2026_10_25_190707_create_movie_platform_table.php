@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nationalities', function (Blueprint $table) {
-            $table->id();
-            $table->string('idioma');
-            $table->string('Pais');
-            $table->string('continente');
-            $table->timestamps();
-        });
+Schema::create('movie_platform', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('movie_id')->constrained('movies')->onDelete('cascade');
+    $table->foreignId('platform_id')->constrained('platforms')->onDelete('cascade');
+    $table->timestamps();
+});
     }
 
     /**
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nationalities');
+        Schema::dropIfExists('movie_platform');
     }
 };

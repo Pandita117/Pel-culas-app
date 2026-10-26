@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_movie')->nullable()->constrained('movies')->onDelete('cascade');
             $table->foreignId('id_serie')->nullable()->constrained('series')->onDelete('cascade');
-            $table->tinyInteger('calificacion')->unsigned();
-            $table->check('calificacion <= 100');
-            $table->longText('Reseña');
+            $table->unsignedTinyInteger('calificacion');
+            $table->longText('resena'); 
             $table->timestamps();
         });
     }
