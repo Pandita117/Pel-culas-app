@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Nationality extends Model
 {
-    protected $table = 'nationalities';
+    use HasFactory;
 
-    protected $fillable = ['idioma', 'Pais', 'continente'];
+    protected $fillable = ['idioma', 'pais', 'continente'];
 
     public function actors()
     {

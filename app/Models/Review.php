@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Review extends Model
 {
-    // Apunta a la tabla ratings
-    protected $table = 'ratings';
+    use HasFactory;
 
-    protected $fillable = ['id_movie', 'id_serie', 'calificacion', 'Reseña'];
+    protected $fillable = ['id_movie', 'id_serie', 'calificacion', 'resena'];
 
     public function movie()
     {

@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Award extends Model
 {
+    use HasFactory;
+
     protected $fillable = ['fecha_creacion', 'nombre_premio'];
 
     public function actors()
@@ -20,11 +23,11 @@ class Award extends Model
 
     public function movies()
     {
-        return $this->hasMany(Movie::class, 'id_premios');
+        return $this->belongsToMany(Movie::class, 'award_movie')->withPivot('anio_ganado');
     }
 
     public function series()
     {
-        return $this->hasMany(Serie::class, 'id_premios');
+        return $this->belongsToMany(Serie::class, 'award_series')->withPivot('anio_ganado');
     }
 }

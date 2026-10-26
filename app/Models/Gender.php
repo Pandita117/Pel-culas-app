@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Gender extends Model
 {
-    protected $fillable = ['genero', 'Descripcion'];
+    use HasFactory;
+
+    protected $fillable = ['genero', 'descripcion'];
 
     public function movies()
     {

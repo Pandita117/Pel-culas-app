@@ -2,22 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Serie extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'titulo',
         'id_director',
         'id_genero',
         'id_clasificacion',
         'id_productora',
-        'id_plataforma',
-        'id_premios',
         'cantidad_premios',
         'fecha_lanzamiento',
-        'cant_episodios',
-        'presupuesto'
+        'cant_episodios'
     ];
 
     public function director()
@@ -40,25 +40,25 @@ class Serie extends Model
         return $this->belongsTo(Productor::class, 'id_productora');
     }
 
-    public function platform()
-    {
-        return $this->belongsTo(Platform::class, 'id_plataforma');
-    }
-
-    public function award()
-    {
-        return $this->belongsTo(Award::class, 'id_premios');
-    }
-
-    // Relación con Actores (Tabla intermedia cast)
+    // Relación N:M con Actores
     public function actors()
     {
-        return $this->belongsToMany(Actor::class, 'cast', 'id_serie', 'id_actor')
-                    ->withPivot('papel')
-                    ->withTimestamps();
+        return $this->belongsToMany(Actor::class, 'actor_series');
     }
 
-    // Relación con Reseñas / Calificaciones
+    // Relación N:M con Plataformas
+    public function platforms()
+    {
+        return $this->belongsToMany(Platform::class, 'platform_series');
+    }
+
+    // Relación N:M con Premios
+    public function awards()
+    {
+        return $this->belongsToMany(Award::class, 'award_series')->withPivot('anio_ganado');
+    }
+
+    // Relación con Reseñas
     public function reviews()
     {
         return $this->hasMany(Review::class, 'id_serie');

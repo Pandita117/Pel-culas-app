@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Clasification extends Model
 {
-    protected $fillable = ['clasficiacion', 'rango', 'Descripcion'];
+    use HasFactory;
+
+    protected $fillable = ['clasificacion', 'rango', 'descripcion'];
 
     public function movies()
     {
