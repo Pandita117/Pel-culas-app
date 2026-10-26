@@ -32,7 +32,7 @@ class ReviewController extends Controller
         $request->validate([
             'id_movie'     => 'nullable|required_without:id_serie|exists:movies,id',
             'id_serie'     => 'nullable|required_without:id_movie|exists:series,id',
-            'calificacion' => 'required|integer|min:1|max:5',
+            'calificacion' => 'required|integer|min:1|max:100',
             'Reseña'       => 'required|string|min:3',
         ]);
 

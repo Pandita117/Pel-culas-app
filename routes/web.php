@@ -4,6 +4,8 @@ use App\Http\Controllers\ClasificationController;
 use App\Http\Controllers\GenderController;
 use App\Http\Controllers\PlatformController;
 use App\Http\Controllers\ProductorController;
+use App\Http\Controllers\ReviewController;;
+use App\Http\Controllers\NationalityController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -20,7 +22,7 @@ Route::resource('clasificacions',ClasificationController::class);
 Route::resource('platforms',PlatformController::class);
 
 //nacionalidaddes
-Route::resource('platforms',PlatformController::class);
+Route::resource('nacionalities',NationalityController::class);
 
 //productoras
 Route::resource('productors',ProductorController::class);
