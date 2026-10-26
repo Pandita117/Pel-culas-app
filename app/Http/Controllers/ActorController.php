@@ -3,63 +3,84 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actor;
+use App\Models\Nationality;
+use App\Models\Award;
 use Illuminate\Http\Request;
 
 class ActorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $actors =Actor::with('nacionalidad')->get();
+        $actors = Actor::with(['nationality', 'award'])->get();
+        return view('actors.index', compact('actors'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $nationalities = Nationality::all();
+        $awards = Award::all();
+        return view('actors.create', compact('nationalities', 'awards'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre_act'      => 'required|string|max:255',
+            'apellido_act'    => 'required|string|max:255',
+            'f_nac'           => 'required|date',
+            'id_nacionalidad' => 'required|exists:nationalities,id',
+            'id_premios'      => 'nullable|exists:awards,id',
+        ]);
+
+        Actor::create([
+            'nombre_act'      => $request->nombre_act,
+            'apellido_act'    => $request->apellido_act,
+            'f_nac'           => $request->f_nac,
+            'id_nacionalidad' => $request->id_nacionalidad,
+            'id_premios'      => $request->id_premios,
+        ]);
+
+        return redirect()->route('actors.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        $actor = Actor::with(['nationality', 'award'])->findOrFail($id);
+        return view('actors.show', compact('actor'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $actor = Actor::findOrFail($id);
+        $nationalities = Nationality::all();
+        $awards = Award::all();
+        return view('actors.edit', compact('actor', 'nationalities', 'awards'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nombre_act'      => 'required|string|max:255',
+            'apellido_act'    => 'required|string|max:255',
+            'f_nac'           => 'required|date',
+            'id_nacionalidad' => 'required|exists:nationalities,id',
+            'id_premios'      => 'nullable|exists:awards,id',
+        ]);
+
+        Actor::findOrFail($id)->update([
+            'nombre_act'      => $request->nombre_act,
+            'apellido_act'    => $request->apellido_act,
+            'f_nac'           => $request->f_nac,
+            'id_nacionalidad' => $request->id_nacionalidad,
+            'id_premios'      => $request->id_premios,
+        ]);
+
+        return redirect()->route('actors.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        Actor::findOrFail($id)->delete();
+        return redirect()->route('actors.index');
     }
 }
