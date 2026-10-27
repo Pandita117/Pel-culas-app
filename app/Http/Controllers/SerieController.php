@@ -15,10 +15,22 @@ use Illuminate\Http\Request;
 class SerieController extends Controller
 {
     public function index()
-    {
-        $series = Serie::with(['director', 'gender', 'clasification', 'productor'])->get();
-        return view('serie', compact('series'));
-    }
+{
+    $series = Serie::with(['director', 'gender', 'clasification', 'productor', 'actors', 'platforms', 'awards'])->get();
+
+    $directors = Director::all();
+    $generos = Gender::all();
+    $clasificaciones = Clasification::all();
+    $productoras = Productor::all();
+    $actors = Actor::all();
+    $platforms = Platform::all();
+    $awards = Award::all();
+
+    return view('serie', compact(
+        'series', 'directors', 'generos', 'clasificaciones',
+        'productoras', 'actors', 'platforms', 'awards'
+    ));
+}
 
     public function create()
     {

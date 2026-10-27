@@ -8,7 +8,7 @@
 </head>
 <body class="bg-light">
 
-    {{-- Componente Navbar --}}
+    {{-- Componente  --}}
     <x-navbar />
 
     <div class="container my-4">
@@ -47,7 +47,6 @@
                                         Editar
                                     </button>
 
-                                    {{-- Formulario Eliminar --}}
                                     <form action="{{ route('actors.destroy', $item->id) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este actor?');">
                                         @csrf
                                         @method('DELETE')
@@ -55,7 +54,7 @@
                                     </form>
                                 </div>
 
-                                {{-- Modal Editar Dinámico --}}
+                                {{-- Modal --}}
                                 <div class="modal fade text-start" id="modalEditar{{ $item->id }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -122,7 +121,7 @@
         </div>
     </div>
 
-    {{-- Componente Modal de Creación --}}
+    {{--Componente--}}
     <x-create-actor :nationalities="$nationalities" :awards="$awards" />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -11,9 +11,9 @@
                     {{-- -name de la producer tag   --}}
                     <div class="mb-3">
                         <label for="nombre productora" class="form-label">Nombre de la productora</label>
-                        <input type="text" name="nombre_productora" id="nombre_productora" class="form-control" placeholder="Ej. Warner" required>
+                        <input type="text" name="nombre_productora" id="nombre_productora" class="form-control" placeholder="Ej. Warner Bros" required>
                     </div>
-                 {{-- descripciión   --}}
+                    {{-- descripciión   --}}
 
                 </div>
                 <div class="modal-footer">

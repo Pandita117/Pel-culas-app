@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="modalCrearGeneroLabel" aria-hidden="true">
+<div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="modalCrearGenerosLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="{{ route('generos.store') }}" method="POST">
@@ -13,12 +13,12 @@
                         <label for="nombre del genero" class="form-label">Nombre del Premio</label>
                         <input type="text" name="genero" id="genero" class="form-control" placeholder="Ej. Comedia" required>
                     </div>
-                 {{-- descripciión   --}}
+                {{-- descripciión   --}}
 
                     <div class="mb-3">
                         <label for="descripcion" class="form-label">Descripción</label>
                         <input type="text" name="descripcion" id="descripcion" class="form-control" required>
-                      
+                    
                     </div>
                 </div>
                 <div class="modal-footer">

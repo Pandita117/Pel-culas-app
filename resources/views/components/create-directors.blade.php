@@ -13,7 +13,7 @@
                     {{-- Campo: Nombre --}}
                     <div class="mb-3">
                         <label for="nombret" class="form-label">Nombre</label>
-                        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ej.guillermo " required>
+                        <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Ej.Memo " required>
                     </div>
 
                     {{-- Campo: Apellido --}}
