@@ -13,6 +13,12 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('nacionalidades.index') }}">Nacionalidades</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('productoras.index') }}">Productoras</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('reviews.index') }}">Reseñas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('actors.index') }}">Actores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('awards.index') }}">Premios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('directors.index') }}">Directores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('movies.index') }}">Peliculas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('series.index') }}">Series</a></li>
+
                 </ul>
             </div>
         </div>
