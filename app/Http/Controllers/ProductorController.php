@@ -13,7 +13,7 @@ class ProductorController extends Controller
     public function index()
     {
         $productoras = Productor::all();
-        return view('productora.index', compact('productoras'));
+        return view('productor', compact('productoras'));
     }
 
     /**

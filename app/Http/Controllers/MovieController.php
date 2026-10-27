@@ -17,7 +17,7 @@ class MovieController extends Controller
     public function index()
     {
         $movies = Movie::with(['director', 'gender', 'clasification', 'productor'])->get();
-        return view('movies.index', compact('movies'));
+        return view('movie', compact('movies'));
     }
 
     public function create()

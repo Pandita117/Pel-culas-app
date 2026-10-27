@@ -10,7 +10,7 @@ class PlatformController extends Controller
     public function index()
     {
         $plataformas = Platform::all();
-        return view('plataforma.index', compact('plataformas'));
+        return view('platform', compact('plataformas'));
     }
 
     public function create()
