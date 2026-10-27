@@ -14,10 +14,13 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Título</label>
-                            <input type="text" name="titulo" class="form-control" required>
+                            <input type="text" name="titulo" class="form-control" placeholder="Lentos y Cariñosos 7" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Director</label>
+                            <label 
+                            class="form-label"
+                            >Director
+                        </label>
                             <select name="id_director" class="form-select" required>
                                 <option value="" selected disabled>Selecciona director...</option>
                                 @foreach($directors as $director)

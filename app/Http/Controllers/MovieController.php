@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class MovieController extends Controller
 {
     public function index()
- {
+    {
         // Cargar las relaciones para que la tabla las muestre rápido
         $movies = Movie::with(['director', 'gender', 'clasification', 'productor'])->get();
         

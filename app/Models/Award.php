@@ -27,7 +27,7 @@ class Award extends Model
     }
 
     public function series()
-    {
-        return $this->belongsToMany(Serie::class, 'award_series')->withPivot('anio_ganado');
-    }
+{
+    return $this->belongsToMany(Serie::class, 'award_series', 'award_id', 'series_id');
+}
 }

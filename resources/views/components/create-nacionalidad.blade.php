@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="idioma" class="form-label">Idioma</label>
-                        <input type="text" name="idioma" id="idioma" class="form-control" placeholder="Ej. Español, Ingles" required>
+                        <input type="text" name="idioma" id="idioma" class="form-control" placeholder="Ej. Español, Gringo jeje" required>
                     </div>
                     <div class="mb-3">
                         <label for="pais" class="form-label">Pais</label>
@@ -18,7 +18,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="continente" class="form-label">Continente</label>
-                        <input type="text" name="continente" id="continente" class="form-control" placeholder="Ej. América, Europa" required>
+                        <input type="text" name="continente" id="continente" class="form-control" placeholder="Ej. America, Europa" required>
                     </div>
                 </div>
                 <div class="modal-footer">

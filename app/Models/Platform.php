@@ -15,9 +15,8 @@ class Platform extends Model
     {
         return $this->belongsToMany(Movie::class, 'movie_platform');
     }
-
     public function series()
     {
-        return $this->belongsToMany(Serie::class, 'platform_series');
+        return $this->belongsToMany(Serie::class, 'platform_series', 'platform_id', 'series_id');
     }
 }

@@ -42,21 +42,23 @@ class Serie extends Model
 
     // Relación N:M con Actores
     public function actors()
-    {
-        return $this->belongsToMany(Actor::class, 'actor_series');
-    }
-
+{
+    // El 2do parámetro es la tabla pivote y el 3ro es la llave foránea de la serie
+    return $this->belongsToMany(Actor::class, 'actor_series', 'series_id', 'actor_id');
+}
     // Relación N:M con Plataformas
     public function platforms()
-    {
-        return $this->belongsToMany(Platform::class, 'platform_series');
-    }
+{
+    // 2do parámetro: tabla pivote | 3er parámetro: tu foreign key (series_id) | 4to parámetro: platform_id
+    return $this->belongsToMany(Platform::class, 'platform_series', 'series_id', 'platform_id');
+}
 
     // Relación N:M con Premios
     public function awards()
-    {
-        return $this->belongsToMany(Award::class, 'award_series')->withPivot('anio_ganado');
-    }
+{
+    // 2do parámetro: tabla pivote | 3er parámetro: tu foreign key (series_id) | 4to parámetro: award_id
+    return $this->belongsToMany(Award::class, 'award_series', 'series_id', 'award_id')->withPivot('anio_ganado');
+}
 
     // Relación con Reseñas
     public function reviews()

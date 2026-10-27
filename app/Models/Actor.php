@@ -27,7 +27,7 @@ class Actor extends Model
     }
 
     public function series()
-    {
-        return $this->belongsToMany(Serie::class, 'actor_series');
-    }
+{
+    return $this->belongsToMany(Serie::class, 'actor_series', 'actor_id', 'series_id');
+}
 }

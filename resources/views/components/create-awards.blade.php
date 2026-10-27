@@ -8,16 +8,16 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {{-- -name del premio  --}}
+                    {{-- -name del premio papu --}}
                     <div class="mb-3">
                         <label for="nombre del premio" class="form-label">Nombre del Premio</label>
                         <input type="text" name="nombre_premio" id="nombre_premio" class="form-control" placeholder="Ej. OSCAaaarrr" required>
                     </div>
-                 {{-- fecha creacion tio  --}}
+                    {{-- fecha creacion tio  --}}
 
                     <div class="mb-3">
-                       <label for="fecha_creacion" class="form-label">Fecha de Creacion</label>
-                       <input type="date" name="fecha_creacion" id="fecha_creacion" class="form-control" required>
+                        <label for="fecha_creacion" class="form-label">Fecha de Creacion</label>
+                        <input type="date" name="fecha_creacion" id="fecha_creacion" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">
