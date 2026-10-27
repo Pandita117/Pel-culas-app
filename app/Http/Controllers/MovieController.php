@@ -15,26 +15,23 @@ use Illuminate\Http\Request;
 class MovieController extends Controller
 {
     public function index()
-{
-    $movies = Movie::all();
-    $directors = Director::all();
-    $generos = Gender::all();
-    $clasificaciones = Clasification::all();
-    $productoras = Productor::all();
-    $actors = Actor::all();
-    $platforms = Platform::all();
-    $awards = Award::all();
+ {
+        // Cargar las relaciones para que la tabla las muestre rápido
+        $movies = Movie::with(['director', 'gender', 'clasification', 'productor'])->get();
+        
+        $directors = Director::all();
+        $generos = Gender::all();
+        $clasificaciones = Clasification::all();
+        $productoras = Productor::all();
+        $actors = Actor::all();
+        $platforms = Platform::all();
+        $awards = Award::all();
 
-    return view('movie', compact(
-        'movies', 
-        'directors', 
-        'generos', 
-        'clasificaciones', 
-        'productoras', 
-        'actors', 
-        'platforms', 
-        'awards'
-    ));
+        return view('movie', compact(
+            'movies', 'directors', 'generos', 'clasificaciones', 
+            'productoras', 'actors', 'platforms', 'awards'
+        ));
+    
 }
 
     public function create()
