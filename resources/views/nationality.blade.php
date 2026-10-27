@@ -8,7 +8,7 @@
 </head>
 <body class="bg-light">
 
-    {{-- Componente  --}}
+    {{-- Componente Navbar --}}
     <x-navbar />
 
     <div class="container my-4">
@@ -26,8 +26,8 @@
                     <thead class="table-dark">
                         <tr>
                             <th>ID</th>
+                            <th>Idioma principal</th>
                             <th>País</th>
-                            <th>Idioma Principal</th>
                             <th>Continente</th>
                             <th class="text-end">Acciones</th>
                         </tr>
@@ -36,9 +36,9 @@
                         @forelse($nacionalidades as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td><strong>{{ $item->pais }}</strong></td>
+                            <td><strong>{{ $item->idioma }}</strong></td>
                             <td>
-                                <span class="badge bg-info text-dark">{{ $item->idioma }}</span>
+                                <span class="badge bg-info text-dark">{{ $item->pais }}</span>
                             </td>
                             <td>{{ $item->continente }}</td>
                             <td class="text-end">
@@ -55,6 +55,7 @@
                                     </form>
                                 </div>
 
+                                {{-- Modal Editar --}}
                                 <div class="modal fade text-start" id="modalEditar{{ $item->id }}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
@@ -62,27 +63,26 @@
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="modal-header bg-warning">
-                                                    <h5 class="modal-title">Editar Nacionalidad </h5>
+                                                    <h5 class="modal-title">Editar Nacionalidad</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div class="mb-3">
-                                                        <label class="form-label">País</label>
-                                                        <input type="text" name="pais" class="form-control" value="{{ $item->pais }}" required>
-                                                    </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">Idioma</label>
                                                         <input type="text" name="idioma" class="form-control" value="{{ $item->idioma }}" required>
                                                     </div>
                                                     <div class="mb-3">
+                                                        <label class="form-label">País</label>
+                                                        <input type="text" name="pais" class="form-control" value="{{ $item->pais }}" required>
+                                                    </div>
+                                                    <div class="mb-3">
                                                         <label class="form-label">Continente</label>
                                                         <input type="text" name="continente" class="form-control" value="{{ $item->continente }}" required>
                                                     </div>
-                                                
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                    <button type="subm  it" class="btn btn-warning">Actualizar</button>
+                                                    <button type="submit" class="btn btn-warning">Actualizar</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -101,7 +101,7 @@
         </div>
     </div>
 
-    {{-- Componente --}}
+    {{-- Componente Modal de Creación --}}
     <x-create-nacionalidad />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

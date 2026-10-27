@@ -10,12 +10,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="Pais" class="form-label">País</label>
-                        <input type="text" name="Pais" id="Pais" class="form-control" placeholder="Ej. México, España" required>
+                        <label for="idioma" class="form-label">Idioma</label>
+                        <input type="text" name="idioma" id="idioma" class="form-control" placeholder="Ej. Español, Ingles" required>
                     </div>
                     <div class="mb-3">
-                        <label for="idioma" class="form-label">Idioma Principal</label>
-                        <input type="text" name="idioma" id="idioma" class="form-control" placeholder="Ej. Español, Inglés" required>
+                        <label for="pais" class="form-label">Pais</label>
+                        <input type="text" name="pais" id="pais" class="form-control" placeholder="Ej. Mexico, Candada" required>
                     </div>
                     <div class="mb-3">
                         <label for="continente" class="form-label">Continente</label>
