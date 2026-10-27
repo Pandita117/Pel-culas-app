@@ -2,7 +2,7 @@
     <div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="modalCrearPlataformaLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('platforms.store') }}" method="POST">
+            <form action="{{ route('plataformas.store') }}" method="POST">
                 @csrf
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="modalCrearPlataformaLabel">Agregar Plataforma</h5>

@@ -2,7 +2,7 @@
     <div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="modalCrearGeneroLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('genders.store') }}" method="POST">
+            <form action="{{ route('generos.store') }}" method="POST">
                 @csrf
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="modalCrearGeneroLabel">Agregar Nuevo Género</h5>

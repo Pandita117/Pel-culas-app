@@ -15,10 +15,27 @@ use Illuminate\Http\Request;
 class MovieController extends Controller
 {
     public function index()
-    {
-        $movies = Movie::with(['director', 'gender', 'clasification', 'productor'])->get();
-        return view('movie', compact('movies'));
-    }
+{
+    $movies = Movie::all();
+    $directors = Director::all();
+    $generos = Gender::all();
+    $clasificaciones = Clasification::all();
+    $productoras = Productor::all();
+    $actors = Actor::all();
+    $platforms = Platform::all();
+    $awards = Award::all();
+
+    return view('movie', compact(
+        'movies', 
+        'directors', 
+        'generos', 
+        'clasificaciones', 
+        'productoras', 
+        'actors', 
+        'platforms', 
+        'awards'
+    ));
+}
 
     public function create()
     {

@@ -2,7 +2,7 @@
     <div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="modalCrearNacionalidadLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('nationalities.store') }}" method="POST">
+            <form action="{{ route('nacionalidades.store') }}" method="POST">
                 @csrf
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="modalCrearNacionalidadLabel">Agregar Nacionalidad</h5>
