@@ -1,11 +1,10 @@
-<div>
-    <div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="modalCrearNacionalidadLabel" aria-hidden="true">
+<div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="modalCrearNacionalidadLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form action="{{ route('nacionalidades.store') }}" method="POST">
                 @csrf
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="modalCrearNacionalidadLabel">Agregar Nacionalidad</h5>
+                    <h5 class="modal-title" id="modalCrearNacionalidadLabel">Agregar Nueva Nacionalidad</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -29,5 +28,4 @@
             </form>
         </div>
     </div>
-</div>
 </div>
