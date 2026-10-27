@@ -17,7 +17,7 @@ class SerieController extends Controller
     public function index()
     {
         $series = Serie::with(['director', 'gender', 'clasification', 'productor'])->get();
-        return view('series.index', compact('series'));
+        return view('serie', compact('series'));
     }
 
     public function create()

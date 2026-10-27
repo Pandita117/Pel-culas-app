@@ -12,7 +12,7 @@ class ActorController extends Controller
     public function index()
     {
         $actors = Actor::with(['nationality', 'award'])->get();
-        return view('actors.index', compact('actors'));
+        return view('actor', compact('actors'));
     }
 
     public function create()

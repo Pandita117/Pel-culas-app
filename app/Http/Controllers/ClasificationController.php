@@ -10,7 +10,7 @@ class ClasificationController extends Controller
     public function index()
     {
         $clasificaciones = Clasification::all();
-        return view('clasificacion.index', compact('clasificaciones'));
+        return view('clasificacion', compact('clasificaciones'));
     }
 
     public function create()

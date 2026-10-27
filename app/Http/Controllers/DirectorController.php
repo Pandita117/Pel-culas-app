@@ -12,7 +12,7 @@ class DirectorController extends Controller
     public function index()
     {
         $directors = Director::with(['nationality', 'award'])->get();
-        return view('directors.index', compact('directors'));
+        return view('director', compact('directors'));
     }
 
     public function create()

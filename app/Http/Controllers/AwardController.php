@@ -10,7 +10,7 @@ class AwardController extends Controller
     public function index()
     {
         $awards = Award::all();
-        return view('awards.index', compact('awards'));
+        return view('award', compact('awards'));
     }
 
     public function create()

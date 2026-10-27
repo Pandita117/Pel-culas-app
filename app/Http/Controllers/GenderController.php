@@ -10,7 +10,7 @@ class GenderController extends Controller
     public function index()
     {
         $generos = Gender::all();
-        return view('genero.index', compact('generos'));
+        return view('gender', compact('generos'));
     }
 
     public function create()

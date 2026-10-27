@@ -10,7 +10,7 @@ class NationalityController extends Controller
     public function index()
     {
         $nacionalidades = Nationality::all();
-        return view('nacionalidad.index', compact('nacionalidades'));
+        return view('nationality', compact('nacionalidades'));
     }
 
     public function create()

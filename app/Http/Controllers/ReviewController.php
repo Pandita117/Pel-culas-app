@@ -10,7 +10,7 @@ class ReviewController extends Controller
     public function index()
     {
         $reviews = Review::with(['movie', 'serie'])->latest()->get();
-        return view('review.index', compact('reviews'));
+        return view('review', compact('reviews'));
     }
 
     public function create()
