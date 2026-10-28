@@ -14,6 +14,7 @@
     <div class="container my-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h2>Gestión de Plataformas</h2>
+
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalCrear">
                 + Nueva Plataforma
             </button>
@@ -25,8 +26,7 @@
                     <thead class="table-dark">
                         <tr>
                             <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Costo</th>
+                            <th>Nombre de la Plataforma</th>
                             <th class="text-end">Acciones</th>
                         </tr>
                     </thead>
@@ -34,13 +34,9 @@
                         @forelse($plataformas as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td><strong>{{ $item->nombre }}</strong></td>
-                            <td>
-                                <span class="badge bg-info text-dark">{{ $item->costo }}</span>
-                            </td>
+                            <td><strong>{{ $item->nombre_plataforma ?? $item->nombre }}</strong></td>
                             <td class="text-end">
                                 <div class="d-inline-flex gap-1">
-                                    
                                     <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditar{{ $item->id }}">
                                         Editar
                                     </button>
@@ -52,25 +48,38 @@
                                     </form>
                                 </div>
 
-                                <div class="modal fade text-start" id="modalEditar{{ $item->id }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal fade text-start" id="modalEditar{{ $item->id }}" tabindex="-1" aria-labelledby="modalEditarPlataformaLabel{{ $item->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <form action="{{ route('plataformas.update', $item->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
-                                                <div class="modal-header bg-warning">
-                                                    <h5 class="modal-title">Editar Plataforma</h5>
+
+                                                <input type="hidden" name="edit_id" value="{{ $item->id }}">
+
+                                                <div class="modal-header bg-warning text-dark">
+                                                    <h5 class="modal-title" id="modalEditarPlataformaLabel{{ $item->id }}">Editar Plataforma</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
+
                                                     <div class="mb-3">
-                                                        <label class="form-label">Nombre</label>
-                                                        <input type="text" name="nombre" class="form-control" value="{{ $item->nombre    }}" required>
+                                                        <label for="nombre_plataforma{{ $item->id }}" class="form-label">Nombre de la Plataforma</label>
+                                                        <input 
+                                                            type="text" 
+                                                            name="nombre_plataforma" 
+                                                            id="nombre_plataforma{{ $item->id }}" 
+                                                            class="form-control @if($errors->has('nombre_plataforma') && old('edit_id') == $item->id) is-invalid @endif" 
+                                                            value="{{ old('edit_id') == $item->id ? old('nombre_plataforma') : ($item->nombre_plataforma ?? $item->nombre) }}" 
+                                                            required>
+
+                                                        @if ($errors->has('nombre_plataforma') && old('edit_id') == $item->id)
+                                                            <div class="invalid-feedback">
+                                                                {{ $errors->first('nombre_plataforma') }}
+                                                            </div>
+                                                        @endif
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label">Costo</label>
-                                                        <input type="number" name="costo" class="form-control" value="{{ $item->costo }}" step="0.01" min="0" required>
-                                                    </div>
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -80,11 +89,12 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="5" class="text-center text-muted py-3">No hay plataformas registradas.</td>
+                            <td colspan="3" class="text-center text-muted py-3">No hay plataformas registradas.</td>
                         </tr>
                         @endforelse
                     </tbody>
@@ -93,9 +103,24 @@
         </div>
     </div>
 
-    {{-- Componente --}}
+    {{-- Componente--}}
     <x-create-plataforma />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    {{-- Script --}}
+    @if ($errors->any())
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                @if(old('edit_id'))
+                    var modalEditar = new bootstrap.Modal(document.getElementById('modalEditar{{ old("edit_id") }}'));
+                    modalEditar.show();
+                @else
+                    var modalCrear = new bootstrap.Modal(document.getElementById('modalCrear'));
+                    modalCrear.show();
+                @endif
+            });
+        </script>
+    @endif
 </body>
 </html>
