@@ -162,7 +162,7 @@
                                                     {{-- Edición Relaciones N:M --}}
                                                     <div class="row">
                                                         <div class="col-md-4 mb-3">
-                                                            <label class="form-label">Actores</label>
+                                                            <label class="form-label text-danger">Actores (Mínimo 1 *)</label>
                                                             <div class="border rounded p-2 bg-white" style="max-height: 120px; overflow-y: auto;">
                                                                 @foreach($actors as $actor)
                                                                     <div class="form-check">
@@ -230,5 +230,37 @@
     />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.modal form').forEach(form => {
+            const checkboxesAwards = form.querySelectorAll('input[name="awards[]"]');
+            const inputCantidadPremios = form.querySelector('input[name="cantidad_premios"]');
+
+            if (checkboxesAwards.length > 0 && inputCantidadPremios) {
+                function actualizarMinimoPremios() {
+                    const seleccionados = form.querySelectorAll('input[name="awards[]"]:checked').length;
+                    inputCantidadPremios.min = seleccionados;
+                    if (parseInt(inputCantidadPremios.value || 0) < seleccionados) {
+                        inputCantidadPremios.value = seleccionados;
+                    }
+                }
+
+                checkboxesAwards.forEach(cb => {
+                    cb.addEventListener('change', actualizarMinimoPremios);
+                });
+                actualizarMinimoPremios();
+            }
+
+            form.addEventListener('submit', function (e) {
+                const actoresSeleccionados = form.querySelectorAll('input[name="actors[]"]:checked').length;
+                if (actoresSeleccionados === 0) {
+                    e.preventDefault();
+                    alert('Debes seleccionar al menos un actor para poder guardar la serie.');
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>

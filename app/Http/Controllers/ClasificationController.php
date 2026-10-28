@@ -21,7 +21,7 @@ class ClasificationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'clasificacion' => 'required|string|max:255',
+            'clasificacion' => 'required|string|max:255|unique:clasifications,clasificacion',
             'rango'         => 'required|in:Todos,12-15,16-17,+18',
             'descripcion'   => 'required|string',
         ]);
@@ -50,7 +50,7 @@ class ClasificationController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'clasificacion' => 'required|string|max:255',
+            'clasificacion' => 'required|string|max:255|unique:clasifications,clasificacion,' . $id,
             'rango'         => 'required|in:Todos,12-15,16-17,+18',
             'descripcion'   => 'required|string',
         ]);

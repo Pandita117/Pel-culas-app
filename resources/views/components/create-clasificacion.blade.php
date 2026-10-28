@@ -7,10 +7,31 @@
                     <h5 class="modal-title" id="modalCrearClasificacionLabel">Agregar Nueva Clasificación</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body">
+                        {{-- -este es para que muestre los errores --}}
+                            @if ($errors->any())
+                            <div class="alert alert-danger py-2">
+                                <ul class="mb-0 ps-3 small">
+                                    @foreach ($errors->all() as $error )
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
+
+                                    {{-- -crear una clasi  --}}
+
                     <div class="mb-3">
                         <label for="clasificacion" class="form-label">Clasificación</label>
-                        <input type="text" name="clasificacion" id="clasificacion" class="form-control" placeholder="Ej. PG-13, R" required>
+                        <input type="text" name="clasificacion" id="clasificacion" class="form-control @error('clasificacion') is-invalid @enderror"
+                        placeholder="Ej. PG-13, R" value="{{ old('clasificacion') }}" required>
+
+                        @error('clasificacion')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="rango" class="form-label">Rango de Edad</label>

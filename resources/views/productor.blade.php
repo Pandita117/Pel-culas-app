@@ -57,14 +57,22 @@
                                             <form action="{{ route('productoras.update', $item->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
+                                                    {{-- -identificacor de modal muejejej --}}
+
+                                                <input type="hidden" name="edit_id" value="{{ $item->id }}"> 
+
                                                 <div class="modal-header bg-warning text-dark">
                                                     <h5 class="modal-title" id="modalEditarPremioLabel{{ $item->id }}">Editar G</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
+
+                                                {{-- -nombre_prodcutora --}}
                                                 <div class="modal-body">
                                                     <div class="mb-3">
                                                         <label for="nombre_productora_{{ $item->id }}" class="form-label">Nombre de la productora</label>
-                                                        <input type="text" name="nombre_productora" id="genero{{ $item->id }}" class="form-control" value="{{ $item->nombre_productora }}" required>
+                                                        <input type="text" name="nombre_productora" id="genero{{ $item->id }}" 
+                                                        class="form-control @if ($errors->has('nombre_productora') && old('edit_id') == $item->id) is-invalid  @endif" 
+                                                        value="{{old('edit_id') ==  $item->id ? old('nombre_productora') : $item->nombre_productora }}" required>
                                                     </div>
 
                                                 
@@ -96,5 +104,20 @@
     <x-create-productora />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    {{-- -abrir modal auto muejejruejuje --}}
+     @if ($errors->any())
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                @if(old('edit_id'))
+                    var modalEditar = new bootstrap.Modal(document.getElementById('modalEditar{{ old("edit_id") }}'));
+                    modalEditar.show();
+                @else
+                    var modalCrear = new bootstrap.Modal(document.getElementById('modalCrear'));
+                    modalCrear.show();
+                @endif
+            });
+        </script>
+    @endif
 </body>
 </html>

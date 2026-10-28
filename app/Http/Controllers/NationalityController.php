@@ -22,7 +22,7 @@ class NationalityController extends Controller
     {
         $request->validate([
             'idioma'     => 'required|string|max:255',
-            'pais'       => 'required|string|max:255',
+            'pais'       => 'required|string|max:255|unique:nationalities,pais',
             'continente' => 'required|string|max:255',
         ]);
 
@@ -51,7 +51,7 @@ class NationalityController extends Controller
     {
         $request->validate([
             'idioma'     => 'required|string|max:255',
-            'pais'       => 'required|string|max:255',
+            'pais'       => 'required|string|max:255|unique:nationalities,pais,' .$id,
             'continente' => 'required|string|max:255',
         ]);
 

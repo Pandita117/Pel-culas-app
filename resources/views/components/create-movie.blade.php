@@ -14,13 +14,10 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Título</label>
-                            <input type="text" name="titulo" class="form-control" placeholder="Lentos y Cariñosos 7" required>
+                            <input type="text" name="titulo" class="form-control" placeholder="Ej. Inception" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label 
-                            class="form-label"
-                            >Director
-                        </label>
+                            <label class="form-label">Director</label>
                             <select name="id_director" class="form-select" required>
                                 <option value="" selected disabled>Selecciona director...</option>
                                 @foreach($directors as $director)
@@ -52,7 +49,7 @@
                         </div>
                     </div>
 
-                    {{-- Fila 3: Productora, Cant. Premios, Duración y Fecha --}}
+                    {{-- Fila 3: Productora, Fecha, Duración y Premios --}}
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label class="form-label">Productora</label>
@@ -77,17 +74,19 @@
                         </div>
                     </div>
 
-                    {{-- Fila 4: Relaciones N:M (Actores, Plataformas, Premios) --}}
+                    {{-- Fila 4: Relaciones N:M --}}
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">Actores</label>
+                            <label class="form-label text-danger">Actores (Mínimo 1 *)</label>
                             <div class="border rounded p-2 bg-light" style="max-height: 120px; overflow-y: auto;">
-                                @foreach($actors as $actor)
+                                @forelse($actors as $actor)
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="actors[]" value="{{ $actor->id }}" id="act_c_{{ $actor->id }}">
+                                        <input class="form-check-input actor-checkbox" type="checkbox" name="actors[]" value="{{ $actor->id }}" id="act_c_{{ $actor->id }}">
                                         <label class="form-check-label" for="act_c_{{ $actor->id }}">{{ $actor->nombre_act }} {{ $actor->apellido_act }}</label>
                                     </div>
-                                @endforeach
+                                @empty
+                                    <small class="text-danger">¡Debes registrar actores primero!</small>
+                                @endforelse
                             </div>
                         </div>
                         <div class="col-md-4 mb-3">
