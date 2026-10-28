@@ -21,7 +21,7 @@ class PlatformController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255|unique:platforms,nombre',
             'costo'  => 'required|numeric|min:0',
         ]);
 
@@ -48,7 +48,7 @@ class PlatformController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255|unique:platforms,nombre,' . $id,
             'costo'  => 'required|numeric|min:0',
         ]);
 

@@ -63,14 +63,24 @@
                                             <form action="{{ route('clasificaciones.update', $item->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
+
+                                                {{-- -identificacor de modal muejejej --}}
+
+                                                <input type="hidden" name="edit_id" value="{{ $item->id }}"> 
+
                                                 <div class="modal-header bg-warning">
                                                     <h5 class="modal-title">Editar Clasificación</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
+
+                                                    {{-- -campo de crear clasificacion --}}
                                                     <div class="mb-3">
                                                         <label class="form-label">Clasificación</label>
-                                                        <input type="text" name="clasificacion" class="form-control" value="{{ $item->clasificacion }}" required>
+                                                        <input type="text" name="clasificacion" 
+                                                        class="form-control @if ($errors->has('clasificacion') && old('edit_id') == $item->id) is-invalid @endif"
+                                                         value="{{old('edit_id') == $item->id ? old('clasificacion') : $item->clasificacion}}" required>
+
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label">Rango de Edad</label>
@@ -111,5 +121,22 @@
     <x-create-clasificacion />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    {{-- -abiri modal con error  --}}
+
+    @if ($errors->any())
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                @if(old('edit_id'))
+                    var modalEditar = new bootstrap.Modal(document.getElementById('modalEditar{{ old("edit_id") }}'));
+                    modalEditar.show();
+                @else
+                    var modalCrear = new bootstrap.Modal(document.getElementById('modalCrear'));
+                    modalCrear.show();
+                @endif
+            });
+        </script>
+    @endif
 </body>
 </html>

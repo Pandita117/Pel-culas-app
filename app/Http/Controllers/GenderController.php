@@ -21,7 +21,7 @@ class GenderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'genero'      => 'required|string|max:255',
+            'genero'      => 'required|string|max:255|unique:genders,genero',
             'descripcion' => 'required|string',
         ]);
 
@@ -48,7 +48,7 @@ class GenderController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'genero'      => 'required|string|max:255',
+            'genero'      => 'required|string|max:255|unique:genders,genero,' . $id,
             'descripcion' => 'required|string',
         ]);
 

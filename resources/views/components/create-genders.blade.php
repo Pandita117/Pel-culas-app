@@ -8,10 +8,28 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
+                        {{-- -este es para que muestre los errores --}}
+                            @if ($errors->any())
+                            <div class="alert alert-danger py-2">
+                                <ul class="mb-0 ps-3 small">
+                                    @foreach ($errors->all() as $error )
+                                    <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
                     {{-- -name del genero   --}}
                     <div class="mb-3">
-                        <label for="nombre del genero" class="form-label">Nombre del Premio</label>
-                        <input type="text" name="genero" id="genero" class="form-control" placeholder="Ej. Comedia" required>
+                        <label for="nombre del genero" class="form-label">Nombre del Genero</label>
+                        <input type="text" name="genero" id="genero" class="form-control @error('genero') is-invalid @enderror"
+                        " placeholder="Ej. Comedia" value="{{ old('genero') }}">
+
+                        @error('genero')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
                     </div>
                 {{-- descripciión   --}}
 

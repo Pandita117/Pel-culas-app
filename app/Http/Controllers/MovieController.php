@@ -16,8 +16,7 @@ class MovieController extends Controller
 {
     public function index()
     {
-        // Cargar las relaciones para que la tabla las muestre rápido
-        $movies = Movie::with(['director', 'gender', 'clasification', 'productor'])->get();
+        $movies = Movie::with(['director', 'gender', 'clasification', 'productor', 'actors', 'platforms', 'awards'])->get();
         
         $directors = Director::all();
         $generos = Gender::all();
@@ -31,39 +30,31 @@ class MovieController extends Controller
             'movies', 'directors', 'generos', 'clasificaciones', 
             'productoras', 'actors', 'platforms', 'awards'
         ));
-    
-}
-
-    public function create()
-    {
-        $directors = Director::all();
-        $genders = Gender::all();
-        $clasifications = Clasification::all();
-        $productors = Productor::all();
-        $actors = Actor::all();
-        $platforms = Platform::all();
-        $awards = Award::all();
-
-        return view('movies.create', compact('directors', 'genders', 'clasifications', 'productors', 'actors', 'platforms', 'awards'));
     }
 
     public function store(Request $request)
     {
+        $cantAwards = count($request->input('awards', []));
+
         $request->validate([
             'titulo'           => 'required|string|max:255',
-            'id_director'      => 'nullable|exists:directors,id',
-            'id_genero'        => 'nullable|exists:genders,id',
-            'id_clasificacion' => 'nullable|exists:clasifications,id',
-            'id_productora'    => 'nullable|exists:productors,id',
-            'cantidad_premios' => 'required|integer|min:0',
+            'id_director'      => 'required|exists:directors,id',
+            'id_genero'        => 'required|exists:genders,id',
+            'id_clasificacion' => 'required|exists:clasifications,id',
+            'id_productora'    => 'required|exists:productors,id',
+            'cantidad_premios' => "required|integer|min:{$cantAwards}",
             'fecha_lanzamiento'=> 'required|date',
             'duracion'         => 'required|integer|min:1',
-            'actors'           => 'nullable|array',
+            'actors'           => 'required|array|min:1',
             'actors.*'         => 'exists:actors,id',
             'platforms'        => 'nullable|array',
             'platforms.*'      => 'exists:platforms,id',
             'awards'           => 'nullable|array',
             'awards.*'         => 'exists:awards,id',
+        ], [
+            'actors.required'     => 'Debes seleccionar al menos un actor para guardar la película.',
+            'actors.min'          => 'Debes seleccionar al menos un actor.',
+            'cantidad_premios.min'=> "La cantidad de premios no puede ser menor a los {$cantAwards} tipos de premios seleccionados.",
         ]);
 
         $movie = Movie::create([
@@ -77,56 +68,38 @@ class MovieController extends Controller
             'duracion'         => $request->duracion,
         ]);
 
-        if ($request->has('actors')) {
-            $movie->actors()->sync($request->actors);
-        }
-        if ($request->has('platforms')) {
-            $movie->platforms()->sync($request->platforms);
-        }
-        if ($request->has('awards')) {
-            $movie->awards()->sync($request->awards);
-        }
+        // Sincronizar relaciones N:M
+        $movie->actors()->sync($request->actors);
+        $movie->platforms()->sync($request->input('platforms', []));
+        $movie->awards()->sync($request->input('awards', []));
 
         return redirect()->route('movies.index');
     }
 
-    public function show(string $id)
-    {
-        $movie = Movie::with(['director', 'gender', 'clasification', 'productor', 'actors', 'platforms', 'awards', 'reviews'])->findOrFail($id);
-        return view('movies.show', compact('movie'));
-    }
-
-    public function edit(string $id)
-    {
-        $movie = Movie::findOrFail($id);
-        $directors = Director::all();
-        $genders = Gender::all();
-        $clasifications = Clasification::all();
-        $productors = Productor::all();
-        $actors = Actor::all();
-        $platforms = Platform::all();
-        $awards = Award::all();
-
-        return view('movies.edit', compact('movie', 'directors', 'genders', 'clasifications', 'productors', 'actors', 'platforms', 'awards'));
-    }
-
     public function update(Request $request, string $id)
     {
+        $cantAwards = count($request->input('awards', []));
+
         $request->validate([
             'titulo'           => 'required|string|max:255',
-            'id_director'      => 'nullable|exists:directors,id',
-            'id_genero'        => 'nullable|exists:genders,id',
-            'id_clasificacion' => 'nullable|exists:clasifications,id',
-            'id_productora'    => 'nullable|exists:productors,id',
-            'cantidad_premios' => 'required|integer|min:0',
+            'id_director'      => 'required|exists:directors,id',
+            'id_genero'        => 'required|exists:genders,id',
+            'id_clasificacion' => 'required|exists:clasifications,id',
+            'id_productora'    => 'required|exists:productors,id',
+            'cantidad_premios' => "required|integer|min:{$cantAwards}",
             'fecha_lanzamiento'=> 'required|date',
             'duracion'         => 'required|integer|min:1',
-            'actors'           => 'nullable|array',
+            // Al menos 1 actor es OBLIGATORIO en edición
+            'actors'           => 'required|array|min:1',
             'actors.*'         => 'exists:actors,id',
             'platforms'        => 'nullable|array',
             'platforms.*'      => 'exists:platforms,id',
             'awards'           => 'nullable|array',
             'awards.*'         => 'exists:awards,id',
+        ], [
+            'actors.required'     => 'Debes seleccionar al menos un actor para actualizar la película.',
+            'actors.min'          => 'Debes seleccionar al menos un actor.',
+            'cantidad_premios.min'=> "La cantidad de premios no puede ser menor a los {$cantAwards} tipos de premios seleccionados.",
         ]);
 
         $movie = Movie::findOrFail($id);
@@ -141,7 +114,7 @@ class MovieController extends Controller
             'duracion'         => $request->duracion,
         ]);
 
-        $movie->actors()->sync($request->input('actors', []));
+        $movie->actors()->sync($request->actors);
         $movie->platforms()->sync($request->input('platforms', []));
         $movie->awards()->sync($request->input('awards', []));
 
@@ -151,6 +124,9 @@ class MovieController extends Controller
     public function destroy(string $id)
     {
         $movie = Movie::findOrFail($id);
+        $movie->actors()->detach();
+        $movie->platforms()->detach();
+        $movie->awards()->detach();
         $movie->delete();
 
         return redirect()->route('movies.index');

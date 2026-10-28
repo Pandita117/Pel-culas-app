@@ -30,7 +30,7 @@ class ProductorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre_productora' => 'required|string|max:255',
+            'nombre_productora' => 'required|string|max:255|unique:productors,nombre_productora',
         ]);
 
         Productor::create([
@@ -64,7 +64,7 @@ class ProductorController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nombre_productora' => 'required|string|max:255',
+            'nombre_productora' => 'required|string|max:255|unique:productors,nombre_productora,' . $id 
         ]);
 
         Productor::findOrFail($id)->update([
